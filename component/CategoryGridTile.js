@@ -1,7 +1,6 @@
 // 93 created
-
-import { View, Text, Pressable, StyleSheet, Platform } from 'react-native';
 import React from 'react';
+import { View, Text, Pressable, StyleSheet, Platform } from 'react-native';
 
 // 96 added onPress props and passed to onPress
 function CategoryGridTile({ title, color, onPress }) {

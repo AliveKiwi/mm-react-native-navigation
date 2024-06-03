@@ -12,7 +12,8 @@ export default function CategoriesScreen({ navigation }) {
   function renderCategoryItem(itemData) {
     // 96 function to navigate on pressing the CategoryGridTile
     function onPressHandler() {
-      navigation.navigate('MealsOverview');
+      // 99 passing data to MealsOverviewScreen({route}) - route.params.categoryId
+      navigation.navigate('MealsOverview', { categoryId: itemData.item.id });
     }
     return (
       <CategoryGridTile
