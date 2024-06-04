@@ -16,7 +16,20 @@ export default function MealsOverviewScreen({ route }) {
 
   // 100 function to render MealItem
   function renderMealItem(itemData) {
-    return <MealItem title={itemData.item.title} />;
+    // const item = itemData.item
+    const { item } = itemData;
+
+    // 101 mealItem prop object
+    const mealItemProps = {
+      title: item.title,
+      imageUrl: item.imageUrl,
+      affordability: item.affordability,
+      complexity: item.complexity,
+      duration: item.duration,
+    };
+
+    // standard javascript & react syntax to pass props
+    return <MealItem {...mealItemProps} />;
   }
 
   return (
