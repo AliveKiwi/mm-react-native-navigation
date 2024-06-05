@@ -33,6 +33,7 @@ export default function MealsOverviewScreen({ route, navigation }) {
 
     // 101 mealItem prop object
     const mealItemProps = {
+      id: item.id,
       title: item.title,
       imageUrl: item.imageUrl,
       affordability: item.affordability,
