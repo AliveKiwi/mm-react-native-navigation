@@ -12,7 +12,7 @@ export default function App() {
   return (
     <>
       {/* 94 added StatusBar */}
-      <StatusBar style="dark" />
+      <StatusBar style="light" />
       {/* 95 added Navigation */}
       <NavigationContainer>
         {/* 102 Added screenOptions to add header styles */}
@@ -32,7 +32,15 @@ export default function App() {
             }}
           />
           {/* 96 added MealsOverviewScreen*/}
-          <Stack.Screen name="MealsOverview" component={MealsOverviewScreen} />
+          <Stack.Screen
+            name="MealsOverview"
+            component={MealsOverviewScreen}
+            // 103 pass function in options
+            // option={({ route, navigation }) => {
+            //   const categoryId = route.params.categoryId;
+            //   return { title: categoryId };
+            // }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>

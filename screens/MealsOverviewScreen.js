@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { StyleSheet, FlatList, View } from 'react-native';
 
-import { MEALS } from '../data/dummy-data';
+import { MEALS, CATEGORIES } from '../data/dummy-data';
 import MealItem from '../component/MealItem';
 
-export default function MealsOverviewScreen({ route }) {
+export default function MealsOverviewScreen({ route, navigation }) {
   // 99 extracting data through route prop
   const categoryId = route.params.categoryId;
 
@@ -13,6 +13,18 @@ export default function MealsOverviewScreen({ route }) {
     // 100 indexOf -> if cetegoryId is found in array categoryIds then return the index or else returns -1
     return mealItem.categoryIds.indexOf(categoryId) >= 0;
   });
+
+  // 103 useEffect - Loads title after loading component
+  // 103 useLayout - Loads title simultaneously
+  useLayoutEffect(() => {
+    // 103 get title property
+    const categoryTitle = CATEGORIES.find(
+      (category) => category.id === categoryId
+    ).title;
+
+    // 103 set title of header
+    navigation.setOptions({ title: categoryTitle });
+  }, [categoryId, navigation]);
 
   // 100 function to render MealItem
   function renderMealItem(itemData) {
