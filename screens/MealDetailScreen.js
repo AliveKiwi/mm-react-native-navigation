@@ -13,6 +13,7 @@ import { MEALS } from '../data/dummy-data';
 import MealDetails from '../component/MealDetails';
 import Subtitle from '../component/MealDetail/Subtitle';
 import List from '../component/MealDetail/List';
+import IconButton from '../component/IconButton';
 
 export default function MealDetailScreen({ route, navigation }) {
   const mealId = route.params.mealId;
@@ -27,7 +28,14 @@ export default function MealDetailScreen({ route, navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
-        return <Button title="Tap me" onPress={headerButtonPressHandler} />;
+        return (
+          // 108 replaced with UC
+          <IconButton
+            icon="star"
+            color="white"
+            onPress={headerButtonPressHandler}
+          />
+        );
       },
     });
   }, [navigation, headerButtonPressHandler]);
