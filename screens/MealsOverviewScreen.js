@@ -1,8 +1,7 @@
 import React, { useLayoutEffect } from 'react';
-import { StyleSheet, FlatList, View } from 'react-native';
 
 import { MEALS, CATEGORIES } from '../data/dummy-data';
-import MealItem from '../component/MealItem';
+import MealsList from '../component/MealsList/MealsList';
 
 export default function MealsOverviewScreen({ route, navigation }) {
   // 99 extracting data through route prop
@@ -26,36 +25,5 @@ export default function MealsOverviewScreen({ route, navigation }) {
     navigation.setOptions({ title: categoryTitle });
   }, [categoryId, navigation]);
 
-  // 100 function to render MealItem
-  function renderMealItem(itemData) {
-    // const item = itemData.item
-    const { item } = itemData;
-
-    // 101 mealItem prop object
-    const mealItemProps = {
-      id: item.id,
-      title: item.title,
-      imageUrl: item.imageUrl,
-      affordability: item.affordability,
-      complexity: item.complexity,
-      duration: item.duration,
-    };
-
-    // standard javascript & react syntax to pass props
-    return <MealItem {...mealItemProps} />;
-  }
-
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={displayedMeals}
-        keyExtractor={(item) => item.id}
-        renderItem={renderMealItem}
-      />
-    </View>
-  );
+  return <MealsList items={displayedMeals} />;
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16 },
-});
