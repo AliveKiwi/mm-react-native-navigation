@@ -1,27 +1,30 @@
 // 104 created
-import React, { useLayoutEffect } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView,
-  Button,
-} from 'react-native';
+import React, { useContext, useLayoutEffect } from 'react';
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 
-import { MEALS } from '../data/dummy-data';
 import MealDetails from '../component/MealDetails';
 import Subtitle from '../component/MealDetail/Subtitle';
 import List from '../component/MealDetail/List';
 import IconButton from '../component/IconButton';
 
+import { MEALS } from '../data/dummy-data';
+import { FavoritesContext } from '../store/context/favorites-context';
+
 export default function MealDetailScreen({ route, navigation }) {
+  // 118 get context object
+  const favoriteMealsCtx = useContext(FavoritesContext);
+
   const mealId = route.params.mealId;
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
-  // 107 function to call on button press
-  function headerButtonPressHandler() {
-    console.log('Pressed!');
+  // 118 boolean : if ids [] have mealId then set true else false
+  const mealIsFavorite = favoriteMealsCtx.ids.includes(mealId);
+
+  // 1118 function to add or remove favorite on button press
+  function changeFavoriteStatusHandler() {
+    if (mealIsFavorite) {
+      favoriteMealsCtx.removeFavorite(mealId);
+    } else favoriteMealsCtx.addFavorite(mealId);
   }
 
   // 107 adding button to header
@@ -31,14 +34,15 @@ export default function MealDetailScreen({ route, navigation }) {
         return (
           // 108 replaced with UC
           <IconButton
-            icon="star"
+            // 118 true = star | false = 'star-outline'
+            icon={mealIsFavorite ? 'star' : 'star-outline'}
             color="white"
-            onPress={headerButtonPressHandler}
+            onPress={changeFavoriteStatusHandler}
           />
         );
       },
     });
-  }, [navigation, headerButtonPressHandler]);
+  }, [navigation, changeFavoriteStatusHandler]);
 
   return (
     <ScrollView style={styles.rootContainer}>
