@@ -1,6 +1,8 @@
 // 104 created
-import React, { useContext, useLayoutEffect } from 'react';
+// import React, { useContext, useLayoutEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 
 import MealDetails from '../component/MealDetails';
 import Subtitle from '../component/MealDetail/Subtitle';
@@ -8,23 +10,34 @@ import List from '../component/MealDetail/List';
 import IconButton from '../component/IconButton';
 
 import { MEALS } from '../data/dummy-data';
-import { FavoritesContext } from '../store/context/favorites-context';
+// import { FavoritesContext } from '../store/context/favorites-context';
+import { addFavorite, removeFavorite } from '../store/redux/favorites';
 
 export default function MealDetailScreen({ route, navigation }) {
-  // 118 get context object
-  const favoriteMealsCtx = useContext(FavoritesContext);
-
   const mealId = route.params.mealId;
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
-  // 118 boolean : if ids [] have mealId then set true else false
-  const mealIsFavorite = favoriteMealsCtx.ids.includes(mealId);
+  // 118 get context object
+  // const favoriteMealsCtx = useContext(FavoritesContext);
 
-  // 1118 function to add or remove favorite on button press
+  // 118 boolean : if ids [] have mealId then set true else false
+  // const mealIsFavorite = favoriteMealsCtx.ids.includes(mealId);
+
+  // 118 function to add or remove favorite on button press
+  // function changeFavoriteStatusHandler() {
+  //   if (mealIsFavorite) {
+  //     favoriteMealsCtx.removeFavorite(mealId);
+  //   } else favoriteMealsCtx.addFavorite(mealId);
+  // }
+
+  // 122 steps to setup redux
+  const favoriteMealIds = useSelector((state) => state.favoriteMeals.ids);
+  const dispatch = useDispatch();
+  const mealIsFavorite = favoriteMealIds.includes(mealId);
+
   function changeFavoriteStatusHandler() {
-    if (mealIsFavorite) {
-      favoriteMealsCtx.removeFavorite(mealId);
-    } else favoriteMealsCtx.addFavorite(mealId);
+    if (mealIsFavorite) dispatch(removeFavorite({ id: mealId }));
+    else dispatch(addFavorite({ id: mealId }));
   }
 
   // 107 adding button to header

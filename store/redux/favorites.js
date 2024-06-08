@@ -10,17 +10,17 @@ const favoriteSlice = createSlice({
   },
   // 9 Define Methods to manipulate the state
   reducers: {
-    addFavorites: (state, action) => {
+    addFavorite: (state, action) => {
       state.ids.push(action.payload.id);
     },
     removeFavorite: (state, action) => {
-      state.ids.spaice(state.ids.indexOf(action.payload.id), 1);
+      state.ids.splice(state.ids.indexOf(action.payload.id), 1);
     },
   },
 });
 
 // 11
-export const addFavorites = favoriteSlice.actions.addFavorites;
+export const addFavorite = favoriteSlice.actions.addFavorite;
 export const removeFavorite = favoriteSlice.actions.removeFavorite;
 
 // 10 Redux export default
